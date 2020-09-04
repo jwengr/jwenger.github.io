@@ -15,5 +15,5 @@ HFT(High Frequency Trading) needs both Low Latency and High speed. It is hard fo
 First of all, you can't fix that ploblems perfectly. But you can try to imitate it similarly. Using Cloud Computing system such as AWS, Azure, You can build a cloud development environment with lower latency than before. It's still high, of course.
 
 ### And so..
-In this project, I will build and practice the HFT trading environment consisting of AWS, Linux and Windows. I don't have much knowledge of HFT, and I know the results will be not good. My goal is to imitate HFT through this project and improve programming skills.
+In this project, I will build and practice the HFT trading environment consisting of AWS, Linux and Windows. I don't have much knowledge of HFT, and I know the results won't be REAL HFT. My goal is to imitate HFT through this project and improve programming skills.
 
