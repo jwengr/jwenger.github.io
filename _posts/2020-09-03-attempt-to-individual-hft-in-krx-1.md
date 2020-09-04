@@ -1,8 +1,9 @@
 ---
 published: true
 ---
-## There have been some attempts to make individual HFT(High Freqency Trading) in the KRX(Korea Exchange). However, It is common to say that it is impossible due to high fees, low accessibility and latency. Therefore, It is thought that only few companies can solve these problems are doing business.
-
+### There have been some attempts to make individual HFT(High Freqency Trading) in the KRX(Korea Exchange). However, It is common to say that it is impossible due to high fees, low accessibility and latency. Therefore, It is thought that only few companies can solve these problems are doing business.
+  
+  
 ## To explain the problems further,
 
 ## 1. low accessibility and high fees  
