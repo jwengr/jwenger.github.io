@@ -3,7 +3,7 @@ published: true
 ---
 ### Get xml -> parsing -> shared memory
 
-~~~c++
+### Full Code
 #include <iostream>
 #include <curl/curl.h>
 #include <string>
@@ -95,7 +95,7 @@ int main(void){
         SHM(par,code);
         return 0;
 }  
-~~~
+  
 ### 1.Get Xml by using curlib
 ~~~c++
 #include <iostream>
