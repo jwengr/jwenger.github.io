@@ -1,7 +1,7 @@
 ---
 published: true
 ---
-### Get xml -> parsing -> shared memory
+### Get xml -> parsing(c++) -> shared memory -> parsing(python) -> dataframe
 #### source page
 ![xmlexample](/assets/img/xmlexample.png)
   
