@@ -12,6 +12,6 @@ KRX(Korea Exchange) provides real-time stock price information through XML data 
 ### 2.Save data in Shared Memory and share with Python
 Trading logic will be put into practice through Python. In order to do, those processes share data through Shared Memory related libraries(shm in c++, sysv_ipc in python). 
 
-### 3.Calculate data and send results
+### 3.Calculate data and make Ask/Bid.
 Compute that data through Python and send the result(Ask/Bid signal) to the Windows. Windows works with stock firm's API to make actual Ask/Bid.
 
