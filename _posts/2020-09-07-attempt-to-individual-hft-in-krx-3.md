@@ -198,7 +198,7 @@ int main(void){
 }  
 ~~~
 
-### 4. Read Shared Memory and preprocessing with Python3
+### 4. Read Shared Memory and Preprocessing with Python3
 ~~~python
 import sysv_ipc as shm
 from ast import literal_eval
