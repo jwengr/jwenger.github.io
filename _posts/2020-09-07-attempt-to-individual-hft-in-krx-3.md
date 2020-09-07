@@ -2,6 +2,7 @@
 published: true
 ---
 ### Get xml -> parsing -> shared memory
+![xmlexample](/assets/img/xmlexample.png)
 
 ### Full Code
 #include <iostream>
