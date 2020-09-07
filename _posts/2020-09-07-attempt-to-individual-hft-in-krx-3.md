@@ -6,8 +6,9 @@ published: true
 ![xmlexample](/assets/img/xmlexample.png)
   
 #### result
+!![shmbytes](/assets/img/shmbytes.png)
 ![result](/assets/img/result.png)  
-<script src="https://gist.github.com/jwengr/1aa661802a824439902dd5353e4deff4.js"></script>
+  
 ### Full Code
 ~~~c++
 #include <iostream>
@@ -195,4 +196,25 @@ int main(void){
         SHM(par,code);
         return 0;
 }  
+~~~
+
+### 4. Read Shared Memory and preprocessing with Python3
+~~~python
+import sysv_ipc as shm
+from ast import literal_eval
+import pandas as pd
+
+df = None
+code = "035420"
+shmString = shm.SharedMemory(int(code))
+shmString.read()
+string = shmString.read().decode("utf-8")
+shmString.remove()
+string = string[:string.find("}")+1]
+dic = literal_eval(string)
+if df is None : 
+    df = pd.DataFrame.from_dict([dic]).set_index('time')
+else : 
+    temp = pd.DataFrame.from_dict([dic]).set_index('time')
+    df = pd.concat([df,temp],axis=0)
 ~~~
