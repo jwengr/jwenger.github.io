@@ -2,9 +2,14 @@
 published: true
 ---
 ### Get xml -> parsing -> shared memory
+#### source page
 ![xmlexample](/assets/img/xmlexample.png)
-
+  
+#### result
+![result](/assets/img/result.png)  
+  
 ### Full Code
+~~~c++
 #include <iostream>
 #include <curl/curl.h>
 #include <string>
@@ -96,7 +101,7 @@ int main(void){
         SHM(par,code);
         return 0;
 }  
-  
+~~~
 ### 1.Get Xml by using curlib
 ~~~c++
 #include <iostream>
