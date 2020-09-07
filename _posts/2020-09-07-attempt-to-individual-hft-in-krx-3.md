@@ -159,7 +159,7 @@ std::string XmlPars(std::string xml,std::string code){
         return result;
 }
 ~~~
-### 3.Copy result to Shared Memory by shm
+### 3.Copy result to Shared Memory
 ~~~c++
 #include <sys/shm.h>
 #include <sys/ipc.h>
