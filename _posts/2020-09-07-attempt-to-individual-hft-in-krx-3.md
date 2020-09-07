@@ -1,6 +1,7 @@
 ---
 published: true
 ---
+### Get xml -> parsing -> shared memory
 
 ~~~c++
 #include <iostream>
@@ -93,6 +94,99 @@ int main(void){
         std::string par = XmlPars(xml,code);
         SHM(par,code);
         return 0;
+}  
+~~~
+### 1.Get Xml by using curlib
+~~~c++
+#include <iostream>
+#include <curl/curl.h>
+#include <string>
+
+std::string GetXml(std::string url){
+        CURL *curl;
+        CURLcode res;
+        std::string readBuffer;
+        curl = curl_easy_init();
+        if(curl) {
+                curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+                curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallBack);
+                curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+                res = curl_easy_perform(curl);
+        }
+        curl_easy_cleanup(curl);
+        curl_global_cleanup();
+
+        return readBuffer;
 }
-  
+~~~
+### 2.Parsing Xml by RapidXml
+~~~c++
+#include "./rapidxml-1.13/rapidxml.hpp"
+#include <cstring>
+
+std::string StrToDict(std::string s1, std::string s2){
+        std::string result =  (std::string)"\'" + s1 + (std::string)"\':\'" + s2 +"\',";
+        return result;
+}
+
+
+std::string XmlPars(std::string xml,std::string code){
+        std::string result = "{";
+        result += StrToDict("code",code);
+        rapidxml::xml_document<> doc;
+        rapidxml::xml_node<> *root_node;
+        doc.parse<0>(&xml[0]);
+        root_node = doc.first_node("stockprice");
+        result += StrToDict("time",root_node->first_attribute("querytime")->value());
+        rapidxml::xml_node<> *ta_node = root_node->first_node("TBL_AskPrice");
+        int i = 0;
+        for(rapidxml::xml_node<> *ask_node = ta_node->first_node("AskPrice"); ask_node ; ask_node = ask_node->next_sibling()){
+                result += StrToDict("BidTop"+std::to_string(++i),ask_node->first_attribute("member_memdoVol")->value());
+                result += StrToDict("AskTop"+std::to_string(i),ask_node->first_attribute("member_mesuoVol")->value());
+        }
+        rapidxml::xml_node<> *ts_node = root_node->first_node("TBL_StockInfo");
+        result += StrToDict("Cur",ts_node->first_attribute("CurJuka")->value());
+        result += StrToDict("Vol",ts_node->first_attribute("Volume")->value());
+        rapidxml::xml_node<> *th_node = root_node->first_node("TBL_Hoga");
+        for(i=0;i<5;i++){
+                result += StrToDict("BookAskPrice"+std::to_string(i),th_node->first_attribute((const char*)("mesuHoka"+std::to_string(i)).c_str())->value());
+                result += StrToDict("BookAskVol"+std::to_string(i),th_node->first_attribute((const char*)("mesuJan"+std::to_string(i)).c_str())->value());
+                result += StrToDict("BookBidPrice"+std::to_string(i),th_node->first_attribute((const char*)("medoHoka"+std::to_string(i)).c_str())->value());
+                result += StrToDict("BookBidVol"+std::to_string(i),th_node->first_attribute((const char*)("medoJan"+std::to_string(i)).c_str())->value());
+        }
+        result.pop_back();
+        result += "}";
+        return result;
+}
+~~~
+### 3.Copy result to Shared Memory by shm
+~~~c++
+#include <sys/shm.h>
+#include <sys/ipc.h>
+
+int SHM(std::string str,std::string code){
+        int shm_id;
+        void *shm_addr;
+        if(-1 == (shm_id = shmget((key_t)std::stoi(code),1024,IPC_CREAT|0666))){
+                std::cout << "shmget failed" << std::endl;
+                return -1;
+        }
+        if((void*)-1 == (shm_addr = shmat(shm_id,NULL,0))){
+                std::cout << "shmat failed" << std::endl;
+                return -1;
+        }
+        memcpy(shm_addr,str.c_str(),str.size());
+        return 0;
+}
+
+int main(void){
+        std::string code = "035420";
+        std::string prefix = "http://asp1.krx.co.kr/servlet/krx.asp.XMLSise?code=";
+        std::string tempurl = "";
+        std::string url = prefix+code;
+        std::string xml =  GetXml(url);
+        std::string par = XmlPars(xml,code);
+        SHM(par,code);
+        return 0;
+}  
 ~~~
