@@ -15,3 +15,6 @@ Trading logic will be put into practice through Python. In order to do, those pr
 ### 3.Calculate data and make Ask/Bid.
 Compute that data through Python and send the result(Ask/Bid signal) to the Windows. Windows works with stock firm's API to make actual Ask/Bid.
 
+### liquidity strategy
+Maybe it should be done in Windows.
+
