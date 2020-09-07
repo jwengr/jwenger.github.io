@@ -7,7 +7,7 @@ published: true
   
 #### result
 ![result](/assets/img/result.png)  
-  
+<script src="https://gist.github.com/jwengr/1aa661802a824439902dd5353e4deff4.js"></script>
 ### Full Code
 ~~~c++
 #include <iostream>
