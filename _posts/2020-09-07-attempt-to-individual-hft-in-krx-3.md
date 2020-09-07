@@ -6,7 +6,7 @@ published: true
 ![xmlexample](/assets/img/xmlexample.png)
   
 #### result
-!![shmbytes](/assets/img/shmbytes.png)
+![shmbytes](/assets/img/shmbytes.png)
 ![result](/assets/img/result.png)  
   
 ### Full Code
